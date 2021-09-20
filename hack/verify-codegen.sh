@@ -10,7 +10,7 @@ TMP_DIFF_ROOT=${SCRIPT_ROOT}/_tmp/pkg
 _tmp=${SCRIPT_ROOT}/_tmp
 
 cleanup() {
-    rm -rf "${_tmp}"
+  rm -rf "${_tmp}"
 }
 trap "cleanup" EXIT SIGINT
 
@@ -24,10 +24,9 @@ echo "Diffing ${DIFF_ROOT} against freshly generated codegen"
 ret=0
 diff -Naupr "${DIFF_ROOT}" "${TMP_DIFF_ROOT}" || ret=$?
 cp -a "${TMP_DIFF_ROOT}"/* "${DIFF_ROOT}"
-if [[ $ret -eq 0 ]]
-then
-    echo "${DIFF_ROOT} up to date."
+if [[ $ret -eq 0 ]]; then
+  echo "${DIFF_ROOT} up to date."
 else
-    echo "${DIFF_ROOT} is out of date. Please run hack/update-codegen.sh"
-    exit 1
+  echo "${DIFF_ROOT} is out of date. Please run hack/update-codegen.sh"
+  exit 1
 fi
