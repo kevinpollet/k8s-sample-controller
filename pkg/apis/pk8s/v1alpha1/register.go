@@ -1,16 +1,18 @@
 package v1alpha1
 
 import (
-	"github.com/kevinpollet/pk8s/pkg/apis/pk8s"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+// GroupName specifies the group name used to register the objects.
+const GroupName = "pk8s.io"
+
 // SchemeGroupVersion is the identifier for the API which includes
 // the name of the group and the version of the API
 var SchemeGroupVersion = schema.GroupVersion{
-	Group:   pk8s.GroupName,
+	Group:   GroupName,
 	Version: "v1alpha1",
 }
 
