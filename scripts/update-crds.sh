@@ -13,6 +13,8 @@ echo ">>> Using controller-tools: ${CTOOLS_PKG}"
 chmod +x "${CTOOLS_PKG}"/.run-controller-gen.sh
 chmod +x "${CTOOLS_PKG}"/.run-in.sh
 
+rm -rf "./deploy/crds"
+
 "${CTOOLS_PKG}"/.run-controller-gen.sh crd \
   paths=./pkg/apis/... \
   output:dir=./deploy/crds

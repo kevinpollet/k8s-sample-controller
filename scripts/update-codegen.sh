@@ -18,5 +18,5 @@ rm -rf "./pkg/gen/client"
 "${CODEGEN_PKG}"/generate-groups.sh all \
   "./pkg/gen/client" \
   "./pkg/apis" pk8s:v1alpha1 \
-  --go-header-file "./hack/boilerplate.go.txt" \
+  --go-header-file "./scripts/boilerplate.go.txt" \
   --output-base "."

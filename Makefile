@@ -4,16 +4,16 @@ help:  ## Display this help
 
 .PHONY: update-codegen
 update-codegen: ## Runs controller-gen
-	./hack/update-codegen.sh
+	./scripts/update-codegen.sh
 
 .PHONY: verify-codegen
 verify-codegen: ## Verifies that generated controller files are up-to-date
-	./hack/verify-codegen.sh
+	./scripts/verify-codegen.sh
 
 .PHONY: update-crds
 update-crds: ## Runs controller-tools
-	./hack/update-crds.sh
+	./scripts/update-crds.sh
 
 .PHONY: verify-crds
 verify-crds: ## Verifies that generated CRDs are up-to-date
-	./hack/verify-crds.sh
+	./scripts/verify-crds.sh

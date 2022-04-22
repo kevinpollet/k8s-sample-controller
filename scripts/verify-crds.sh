@@ -19,14 +19,14 @@ cleanup
 mkdir -p "${TMP_DIFF_ROOT}"
 cp -a "${DIFF_ROOT}"/* "${TMP_DIFF_ROOT}"
 
-"${SCRIPT_ROOT}/hack/update-codegen.sh"
-echo "Diffing ${DIFF_ROOT} against freshly generated codegen"
+"${SCRIPT_ROOT}/scripts/update-crds.sh"
+echo "Diffing ${DIFF_ROOT} against freshly generated CRDs"
 ret=0
 diff -Naupr "${DIFF_ROOT}" "${TMP_DIFF_ROOT}" || ret=$?
 cp -a "${TMP_DIFF_ROOT}"/* "${DIFF_ROOT}"
 if [[ $ret -eq 0 ]]; then
   echo "${DIFF_ROOT} up to date."
 else
-  echo "${DIFF_ROOT} is out of date. Please run hack/update-codegen.sh"
+  echo "${DIFF_ROOT} is out of date. Please run scripts/update-crds.sh"
   exit 1
 fi
