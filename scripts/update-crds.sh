@@ -5,16 +5,16 @@ set -o nounset
 set -o pipefail
 
 GOPATH=$(go env GOPATH)
-CTOOLS_VERSION=$(grep 'sigs.k8s.io/controller-tools' go.sum | awk '{print $2}' | head -1)
-CTOOLS_PKG=${GOPATH}/pkg/mod/sigs.k8s.io/controller-tools@${CTOOLS_VERSION}
+CONTROLLER_TOOLS_VERSION=$(go list -m -f "{{ .Version }}" "sigs.k8s.io/controller-tools")
+CONTROLLER_TOOLS_PKG=${GOPATH}/pkg/mod/sigs.k8s.io/controller-tools@${CONTROLLER_TOOLS_VERSION}
 
-echo ">>> Using controller-tools: ${CTOOLS_PKG}"
+echo ">>> Using controller-tools: ${CONTROLLER_TOOLS_PKG}"
 
-chmod +x "${CTOOLS_PKG}"/.run-controller-gen.sh
-chmod +x "${CTOOLS_PKG}"/.run-in.sh
+chmod +x "${CONTROLLER_TOOLS_PKG}"/.run-controller-gen.sh
+chmod +x "${CONTROLLER_TOOLS_PKG}"/.run-in.sh
 
 rm -rf "./deploy/crds"
 
-"${CTOOLS_PKG}"/.run-controller-gen.sh crd \
+"${CONTROLLER_TOOLS_PKG}"/.run-controller-gen.sh crd \
   paths=./pkg/apis/... \
   output:dir=./deploy/crds

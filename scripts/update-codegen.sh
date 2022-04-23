@@ -4,19 +4,29 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 GOPATH=$(go env GOPATH)
-CODEGEN_VERSION=$(grep 'k8s.io/code-generator' go.sum | awk '{print $2}' | head -1)
+CODEGEN_VERSION=$(go list -m -f "{{ .Version }}" "k8s.io/code-generator")
 CODEGEN_PKG=${GOPATH}/pkg/mod/k8s.io/code-generator@${CODEGEN_VERSION}
+
+_tmp=$(mktemp -d)
+cleanup() {
+    rm -rf ${_tmp}
+}
+trap "cleanup" EXIT SIGINT
 
 echo ">>> Using code-generator: ${CODEGEN_PKG}"
 
 chmod +x "${CODEGEN_PKG}"/generate-groups.sh
 
-rm -rf "./pkg/apis/pk8s/v1alpha1/zz_generated.deepcopy.go"
-rm -rf "./pkg/gen/client"
+rm -rf "${SCRIPT_ROOT}/pkg/apis/sample/v1alpha1/zz_generated.deepcopy.go"
+rm -rf "${SCRIPT_ROOT}/pkg/client"
 
 "${CODEGEN_PKG}"/generate-groups.sh all \
-  "./pkg/gen/client" \
-  "./pkg/apis" pk8s:v1alpha1 \
+  "github.com/kevinpollet/k8s-sample-controller/pkg/client" \
+  "github.com/kevinpollet/k8s-sample-controller/pkg/apis" \
+  sample:v1alpha1 \
   --go-header-file "./scripts/boilerplate.go.txt" \
-  --output-base "."
+  --output-base "${_tmp}"
+
+cp -r "${_tmp}/github.com/kevinpollet/k8s-sample-controller/" "${SCRIPT_ROOT}"
