@@ -20,6 +20,7 @@ mkdir -p "${TMP_DIFF_ROOT}"
 cp -a "${DIFF_ROOT}"/* "${TMP_DIFF_ROOT}"
 
 "${SCRIPT_ROOT}/scripts/update-codegen.sh"
+
 echo "Diffing ${DIFF_ROOT} against freshly generated codegen"
 ret=0
 diff -Naupr "${DIFF_ROOT}" "${TMP_DIFF_ROOT}" || ret=$?

@@ -6,23 +6,20 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// CertificateRequest represents a certificate request (CSR).
-type CertificateRequest struct {
+type Job struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec CertificateRequestSpec `json:"spec"`
+	Spec JobSpec `json:"spec"`
 }
 
-// CertificateRequestSpec is the spec for a CertificateRequest resource
-type CertificateRequestSpec struct{}
+type JobSpec struct{}
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// CertificateRequestList is a list of CertificateRequest resources
 type CertificateRequestList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 
-	CertificateRequests []CertificateRequest `json:"certificateRequests"`
+	Jobs []Job `json:"jobs"`
 }

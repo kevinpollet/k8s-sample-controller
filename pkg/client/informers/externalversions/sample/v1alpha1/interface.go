@@ -31,8 +31,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// CertificateRequests returns a CertificateRequestInformer.
-	CertificateRequests() CertificateRequestInformer
+	// Jobs returns a JobInformer.
+	Jobs() JobInformer
 }
 
 type version struct {
@@ -46,7 +46,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// CertificateRequests returns a CertificateRequestInformer.
-func (v *version) CertificateRequests() CertificateRequestInformer {
-	return &certificateRequestInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// Jobs returns a JobInformer.
+func (v *version) Jobs() JobInformer {
+	return &jobInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

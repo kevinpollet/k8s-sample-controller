@@ -25,10 +25,10 @@ THE SOFTWARE.
 
 package v1alpha1
 
-// CertificateRequestListerExpansion allows custom methods to be added to
-// CertificateRequestLister.
-type CertificateRequestListerExpansion interface{}
+// JobListerExpansion allows custom methods to be added to
+// JobLister.
+type JobListerExpansion interface{}
 
-// CertificateRequestNamespaceListerExpansion allows custom methods to be added to
-// CertificateRequestNamespaceLister.
-type CertificateRequestNamespaceListerExpansion interface{}
+// JobNamespaceListerExpansion allows custom methods to be added to
+// JobNamespaceLister.
+type JobNamespaceListerExpansion interface{}

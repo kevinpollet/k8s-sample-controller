@@ -35,7 +35,7 @@ import (
 
 type SampleV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	CertificateRequestsGetter
+	JobsGetter
 }
 
 // SampleV1alpha1Client is used to interact with features provided by the sample.io group.
@@ -43,8 +43,8 @@ type SampleV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *SampleV1alpha1Client) CertificateRequests(namespace string) CertificateRequestInterface {
-	return newCertificateRequests(c, namespace)
+func (c *SampleV1alpha1Client) Jobs(namespace string) JobInterface {
+	return newJobs(c, namespace)
 }
 
 // NewForConfig creates a new SampleV1alpha1Client for the given config.

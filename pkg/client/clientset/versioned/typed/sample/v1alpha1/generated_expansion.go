@@ -25,4 +25,4 @@ THE SOFTWARE.
 
 package v1alpha1
 
-type CertificateRequestExpansion interface{}
+type JobExpansion interface{}

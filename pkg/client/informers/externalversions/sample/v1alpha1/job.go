@@ -39,59 +39,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// CertificateRequestInformer provides access to a shared informer and lister for
-// CertificateRequests.
-type CertificateRequestInformer interface {
+// JobInformer provides access to a shared informer and lister for
+// Jobs.
+type JobInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.CertificateRequestLister
+	Lister() v1alpha1.JobLister
 }
 
-type certificateRequestInformer struct {
+type jobInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewCertificateRequestInformer constructs a new informer for CertificateRequest type.
+// NewJobInformer constructs a new informer for Job type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewCertificateRequestInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredCertificateRequestInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewJobInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredJobInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredCertificateRequestInformer constructs a new informer for CertificateRequest type.
+// NewFilteredJobInformer constructs a new informer for Job type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredCertificateRequestInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredJobInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SampleV1alpha1().CertificateRequests(namespace).List(context.TODO(), options)
+				return client.SampleV1alpha1().Jobs(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SampleV1alpha1().CertificateRequests(namespace).Watch(context.TODO(), options)
+				return client.SampleV1alpha1().Jobs(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&samplev1alpha1.CertificateRequest{},
+		&samplev1alpha1.Job{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *certificateRequestInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredCertificateRequestInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *jobInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredJobInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *certificateRequestInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&samplev1alpha1.CertificateRequest{}, f.defaultInformer)
+func (f *jobInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&samplev1alpha1.Job{}, f.defaultInformer)
 }
 
-func (f *certificateRequestInformer) Lister() v1alpha1.CertificateRequestLister {
-	return v1alpha1.NewCertificateRequestLister(f.Informer().GetIndexer())
+func (f *jobInformer) Lister() v1alpha1.JobLister {
+	return v1alpha1.NewJobLister(f.Informer().GetIndexer())
 }

@@ -5,20 +5,19 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: certificaterequests.sample.io
+  name: jobs.sample.io
 spec:
   group: sample.io
   names:
-    kind: CertificateRequest
-    listKind: CertificateRequestList
-    plural: certificaterequests
-    singular: certificaterequest
+    kind: Job
+    listKind: JobList
+    plural: jobs
+    singular: job
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CertificateRequest represents a certificate request (CSR).
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -33,8 +32,6 @@ spec:
           metadata:
             type: object
           spec:
-            description: CertificateRequestSpec is the spec for a CertificateRequest
-              resource
             type: object
         required:
         - spec

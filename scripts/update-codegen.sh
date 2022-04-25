@@ -8,12 +8,14 @@ SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 GOPATH=$(go env GOPATH)
 CODEGEN_VERSION=$(go list -m -f "{{ .Version }}" "k8s.io/code-generator")
 CODEGEN_PKG=${GOPATH}/pkg/mod/k8s.io/code-generator@${CODEGEN_VERSION}
-
 _tmp=$(mktemp -d)
+
 cleanup() {
     rm -rf ${_tmp}
 }
 trap "cleanup" EXIT SIGINT
+
+cleanup
 
 echo ">>> Using code-generator: ${CODEGEN_PKG}"
 
@@ -26,7 +28,7 @@ rm -rf "${SCRIPT_ROOT}/pkg/client"
   "github.com/kevinpollet/k8s-sample-controller/pkg/client" \
   "github.com/kevinpollet/k8s-sample-controller/pkg/apis" \
   sample:v1alpha1 \
-  --go-header-file "./scripts/boilerplate.go.txt" \
+  --go-header-file "${SCRIPT_ROOT}/scripts/boilerplate.go.txt" \
   --output-base "${_tmp}"
 
-cp -r "${_tmp}/github.com/kevinpollet/k8s-sample-controller/" "${SCRIPT_ROOT}"
+cp -a "${_tmp}/github.com/kevinpollet/k8s-sample-controller"/* "${SCRIPT_ROOT}"

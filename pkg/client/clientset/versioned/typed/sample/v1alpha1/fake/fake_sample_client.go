@@ -35,8 +35,8 @@ type FakeSampleV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeSampleV1alpha1) CertificateRequests(namespace string) v1alpha1.CertificateRequestInterface {
-	return &FakeCertificateRequests{c, namespace}
+func (c *FakeSampleV1alpha1) Jobs(namespace string) v1alpha1.JobInterface {
+	return &FakeJobs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
