@@ -17,4 +17,4 @@ rm -rf "./deploy/crds"
 
 "${CONTROLLER_TOOLS_PKG}"/.run-controller-gen.sh crd \
   paths=./pkg/apis/... \
-  output:dir=./deploy/crds
+  output:dir=./deploy/crds \

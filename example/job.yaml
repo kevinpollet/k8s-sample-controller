@@ -1,0 +1,12 @@
+---
+apiVersion: sample.io/v1alpha1
+kind: Job
+metadata:
+  name: example
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: test
+          image: traefik/whoami

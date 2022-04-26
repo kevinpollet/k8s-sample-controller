@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8s-sample-controller
+  namespace: default
+
+rules:
+  - apiGroups:
+      - sample.io
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-sample-controller
+  namespace: default
+
+subjects:
+  - kind: ServiceAccount
+    name: k8s-sample-controller
+    namespace: default
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-sample-controller

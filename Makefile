@@ -4,7 +4,7 @@ help:  ## Displays this help.
 
 .PHONY: image
 image: ## Builds the Docker image.
-	docker build .
+	docker build . -t kevinpollet/k8s-sample-controller
 
 .PHONY: update-codegen
 update-codegen: ## Generates Kubernetes client and deepcopy functions.
